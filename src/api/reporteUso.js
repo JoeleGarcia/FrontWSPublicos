@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'https://localhost:7258/ReporteUso.asmx';
+const API_URL = 'https://wsapi.wslab.qzz.io/ReporteUso.asmx';
 
 export default {
     async consultarUsoServicios(nombreServicio, fechaInicio, fechaFin) {
