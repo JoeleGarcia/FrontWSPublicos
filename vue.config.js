@@ -2,12 +2,19 @@
 const fs = require('fs');
 const path = require('path');
 
+let httpsConfig = false;
+
+// Solo usar certificados en modo desarrollo
+if (process.env.NODE_ENV === 'development') {
+  httpsConfig = {
+    key: fs.readFileSync(path.resolve(__dirname, 'certs/localhost-key.pem')),
+    cert: fs.readFileSync(path.resolve(__dirname, 'certs/localhost.pem'))
+  };
+}
+
 module.exports = {
   devServer: {
-    hhttps: process.env.NODE_ENV !== 'production' ? {
-      key: fs.readFileSync(path.resolve(__dirname, 'certs/localhost-key.pem')),
-      cert: fs.readFileSync(path.resolve(__dirname, 'certs/localhost.pem'))
-    } : false,
+    https: httpsConfig,
     proxy: {
       '^/api': {
         target: 'https://wsapi.wslab.qzz.io',
